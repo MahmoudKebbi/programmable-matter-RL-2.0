@@ -1,0 +1,65 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+conda-env/
+environment.yml
+
+# PyTorch specific
+*.pth
+*.pt
+*.pkl
+checkpoints/
+runs/
+lightning_logs/
+wandb/
+
+# Tensorboard logs
+logs/
+events.out.tfevents.*
+
+# Data folders
+data/
+datasets/
+raw_data/
+
+# Model outputs
+models/
+saved_models/
+output/
+results/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Logging files
+*.log
+*.out
+
+# Reinforcement Learning specific
+videos/
+render/
+tmp/
