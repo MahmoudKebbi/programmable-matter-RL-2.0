@@ -3,8 +3,8 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.grid import Grid
-from src.visualizer import Visualizer
+from src.backup.grid import Grid
+from src.backup.visualizer import Visualizer
 
 
 def main():

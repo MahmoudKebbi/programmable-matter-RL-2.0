@@ -1,4 +1,6 @@
 import heapq
+import numpy as np
+from scipy.optimize import linear_sum_assignment
 from typing import List, Tuple, Optional, Dict, Set
 from collections import deque
 
@@ -120,42 +122,16 @@ def state_to_tuple(state: List[Tuple[int, int]]) -> Tuple[Tuple[int, int], ...]:
 # Optimized heuristic functions
 def heuristic(state: List[Tuple[int, int]], target: List[Tuple[int, int]]) -> int:
     """Improved heuristic function using greedy matching."""
-    if len(state) != len(target):
-        raise ValueError("State and target must have the same number of blocks")
-
-    total = 0
-    used_targets = set()
-
-    # Sort blocks by their distance to the nearest target
-    block_distances = []
+    cost_matrix = np.zeros((len(state), len(target)))
     for i, (x1, y1) in enumerate(state):
-        min_dist = float("inf")
         for j, (x2, y2) in enumerate(target):
-            dist = abs(x1 - x2) + abs(y1 - y2)
-            if dist < min_dist:
-                min_dist = dist
-        block_distances.append((i, min_dist))
+            cost_matrix[i, j] = abs(x1 - x2) + abs(y1 - y2)
 
-    # Process blocks with largest minimum distances first
-    for i, _ in sorted(block_distances, key=lambda x: -x[1]):
-        x1, y1 = state[i]
-        best_dist = float("inf")
-        best_target = None
+    # Use Hungarian algorithm to find optimal assignment
+    row_ind, col_ind = linear_sum_assignment(cost_matrix)
+    total_cost = cost_matrix[row_ind, col_ind].sum()
 
-        for j, (x2, y2) in enumerate(target):
-            if j in used_targets:
-                continue
-
-            dist = abs(x1 - x2) + abs(y1 - y2)
-            if dist < best_dist:
-                best_dist = dist
-                best_target = j
-
-        if best_target is not None:
-            used_targets.add(best_target)
-            total += best_dist
-
-    return total
+    return total_cost
 
 
 # Fast successor generation
