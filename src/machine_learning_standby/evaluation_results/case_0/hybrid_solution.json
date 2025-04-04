@@ -1,0 +1,69 @@
+{
+  "grid_size": [
+    5,
+    5
+  ],
+  "start_state": [
+    [
+      0,
+      4
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "target_state": [
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "solution": [
+    [
+      [
+        0,
+        0,
+        -1
+      ],
+      [
+        1,
+        0,
+        -1
+      ]
+    ],
+    [
+      [
+        0,
+        1,
+        -1
+      ]
+    ]
+  ],
+  "metrics": {
+    "solved": true,
+    "solution_length": 2,
+    "execution_time": 0.0019998550415039062,
+    "nodes_expanded": 2,
+    "max_frontier_size": 26,
+    "grid_size": 25,
+    "num_blocks": 3,
+    "complexity": 30,
+    "ml_time": 0,
+    "search_time": 0.0019998550415039062,
+    "ml_suggestions_used": 0,
+    "ml_suggestions_total": 0
+  }
+}

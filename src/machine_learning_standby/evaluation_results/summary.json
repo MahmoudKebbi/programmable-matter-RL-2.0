@@ -1,0 +1,29 @@
+{
+  "adaptive": {
+    "solved_rate": 1.0,
+    "avg_solution_length": 5.311111111111111,
+    "avg_execution_time": 0.016778898239135743,
+    "avg_nodes_expanded": 5.355555555555555,
+    "avg_frontier_size": 247.82222222222222,
+    "avg_ml_time": 0.0,
+    "avg_search_time": 0.016684256659613716,
+    "avg_ml_time_ratio": 0.0
+  },
+  "astar": {
+    "solved_rate": 1.0,
+    "avg_solution_length": 5.311111111111111,
+    "avg_execution_time": 0.02779453065660265,
+    "avg_nodes_expanded": 5.355555555555555,
+    "avg_frontier_size": 247.82222222222222
+  },
+  "hybrid": {
+    "solved_rate": 1.0,
+    "avg_solution_length": 5.311111111111111,
+    "avg_execution_time": 0.017530817455715605,
+    "avg_nodes_expanded": 5.355555555555555,
+    "avg_frontier_size": 247.82222222222222,
+    "avg_ml_time": 0.0,
+    "avg_search_time": 0.01733511288960775,
+    "avg_ml_time_ratio": 0.0
+  }
+}

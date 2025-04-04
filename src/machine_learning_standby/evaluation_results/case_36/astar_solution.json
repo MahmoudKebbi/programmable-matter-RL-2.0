@@ -1,0 +1,74 @@
+{
+  "grid_size": [
+    10,
+    10
+  ],
+  "start_state": [
+    [
+      2,
+      8
+    ],
+    [
+      3,
+      7
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      3,
+      9
+    ],
+    [
+      4,
+      8
+    ]
+  ],
+  "target_state": [
+    [
+      1,
+      9
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      3,
+      9
+    ],
+    [
+      4,
+      8
+    ]
+  ],
+  "solution": [
+    [
+      [
+        0,
+        -1,
+        1
+      ],
+      [
+        1,
+        -1,
+        1
+      ]
+    ]
+  ],
+  "metrics": {
+    "solved": true,
+    "solution_length": 1,
+    "execution_time": 0.0028901100158691406,
+    "nodes_expanded": 1,
+    "max_frontier_size": 56,
+    "grid_size": 100,
+    "num_blocks": 5,
+    "complexity": 100
+  }
+}
