@@ -313,6 +313,7 @@ class ProgrammableMatterEnv(gym.Env):
             "solved": done and self.steps < self.max_steps,  # Indicate if solved vs timeout
         }
 
+
         return observation, reward, done, info
 
     def reset(self):

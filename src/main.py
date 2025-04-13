@@ -4,7 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.backup.grid import Grid
-from src.backup.visualizer import Visualizer
+from visualizer import Visualizer
 
 
 def main():
