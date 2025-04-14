@@ -1,34 +1,19 @@
 from setuptools import setup, Extension
 from Cython.Build import cythonize
 import numpy as np
-import os
 
-# Check for compiler optimizations
-extra_compile_args = ["-O3"]  # Optimization level 3
-if os.name == "posix":  # For Linux/Mac
-    extra_compile_args.extend(["-march=native", "-mtune=native"])
-
-# Define the extension
-extensions = [
+ext_modules = [
     Extension(
-        "fast_algorithms",
-        sources=["fast_algorithms.pyx"],
+        "puzzle_cython",
+        ["puzzle_cython.pyx"],
         include_dirs=[np.get_include()],
-        language="c++",
-        extra_compile_args=extra_compile_args,
-    ),
+        extra_compile_args=["-O3"],  # Optimization level
+    )
 ]
 
 setup(
-    name="fast_algorithms",
-    ext_modules=cythonize(
-        extensions,
-        compiler_directives={
-            "language_level": 3,
-            "boundscheck": False,
-            "wraparound": False,
-            "cdivision": True,
-        },
-    ),
-    zip_safe=False,
+    name="block_puzzle_solver",
+    ext_modules=cythonize(ext_modules, annotate=True, language_level="3"),
+    include_dirs=[np.get_include()],
+    requires=["numpy", "scipy", "cython", "pygame"],
 )

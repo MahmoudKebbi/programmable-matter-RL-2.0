@@ -2,7 +2,7 @@ import pygame
 import time
 import numpy as np
 from src.grid import Grid
-from src.ai_agent import AI_Agent
+from src.optimizeed_ai_agent import AI_Agent
 import multiprocessing
 
 # Define Colors
