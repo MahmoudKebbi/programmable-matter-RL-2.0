@@ -4,7 +4,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.backup.grid import Grid
-from moder_visualizer import Visualizer
+from visualizer import Visualizer
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
     Entry point for the programmable matter simulation.
     Initializes a 30x30 grid with a starting shape and a target shape.
     """
-    n, m = 50,50
+    n, m = 30,30
     start_positions = [
         # Row 9 (10 positions)
         (9, 0),

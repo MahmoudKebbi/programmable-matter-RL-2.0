@@ -2,7 +2,7 @@ import pygame
 import time
 import numpy as np
 from src.grid import Grid
-from src.optimizeed_ai_agent import AI_Agent
+from src.puzzle_solver import AI_Agent
 import multiprocessing
 
 # Define Colors
@@ -45,6 +45,9 @@ class Visualizer:
         self.grid = grid
         self.target_shape = target_shape
         self.obstacles = obstacles if obstacles is not None else []
+
+        # Store initial state for reset functionality
+        self.initial_state = list(grid.matter_elements)
 
         # Calculate appropriate cell size based on grid dimensions
         self.cell_size = self.calculate_cell_size(grid.n, grid.m, max_window_size)
@@ -342,7 +345,7 @@ class Visualizer:
         # Help instructions in manual mode
         elif self.mode == "manual":
             help_text = font.render(
-                "T: Regular A* | H: Hierarchical | P: Parallel A* | L: Parallel Hierarchical",
+                "T: Regular A* | H: Hierarchical | P: Parallel A* | L: Parallel Hierarchical | A: Auto Planner",
                 True,
                 BLACK,
             )
@@ -603,7 +606,7 @@ class Visualizer:
 
         # Measure planning time
         start_time = time.time()
-        plan = self.ai_agent.plan()
+        plan = self.ai_agent.plan_smart_formation()
         end_time = time.time()
 
         self.plan_time = end_time - start_time
@@ -713,6 +716,61 @@ class Visualizer:
             )
             return False
 
+    def run_auto_planning(self):
+        """Run auto planning with timing"""
+        print("Starting auto planning...")
+        self.show_message("Computing plan with Auto Planner...")
+
+        # Update AI agent with current state
+        self.ai_agent = AI_Agent(
+            self.grid.n,
+            self.grid.m,
+            self.grid.matter_elements,
+            self.target_shape,
+            self.obstacles,
+        )
+
+        # Measure planning time
+        start_time = time.time()
+        plan = self.ai_agent.plan_snake_movement()
+        end_time = time.time()
+
+        self.plan_time = end_time - start_time
+        self.plan_nodes = self.ai_agent.nodes_expanded
+
+        if plan:
+            print(
+                f"Auto planning successful: {len(plan)} moves in {self.plan_time:.2f}s"
+            )
+            self.ai_plan = plan
+            self.ai_step = 0
+            self.mode = "ai"
+            self.show_message(f"Plan found: {len(plan)} moves in {self.plan_time:.2f}s")
+            return True
+        else:
+            print("Auto planning failed")
+            self.show_message("Auto planning failed to find a solution")
+            return False
+
+    def reset_simulation(self):
+        """Reset the simulation to its initial state"""
+        print("Resetting simulation to initial state")
+
+        # Reset grid to initial state
+        self.grid.matter_elements = list(self.initial_state)
+
+        # Reset AI execution state if active
+        if self.mode == "ai":
+            self.ai_step = 0
+            self.mode = "manual"
+
+        # Clear any waypoints
+        self.waypoints = []
+        self.current_subproblem = 0
+
+        # Show confirmation message
+        self.show_message("Simulation reset to initial state")
+
     def run(self):
         """
         Main loop for visualization with keyboard input.
@@ -761,6 +819,10 @@ class Visualizer:
 
                     if event.key == pygame.K_ESCAPE:
                         running = False
+
+                    # Add reset key (F5)
+                    if event.key == pygame.K_F5:
+                        self.reset_simulation()
 
                     if event.key == pygame.K_g:
                         self.grid.display_grid()
@@ -906,6 +968,20 @@ class Visualizer:
                             continue
 
                         self.run_parallel_hierarchical_planning()
+
+                    # Run auto planning
+                    if event.key == pygame.K_x:
+                        # First check if target shape has the correct number of blocks
+                        if len(self.target_shape) != len(self.grid.matter_elements):
+                            self.show_message(
+                                f"Target must have exactly {len(self.grid.matter_elements)} blocks (currently has {len(self.target_shape)})"
+                            )
+                            print(
+                                f"Target must have exactly {len(self.grid.matter_elements)} blocks"
+                            )
+                            continue
+
+                        self.run_auto_planning()
 
                     # Toggle between manual and individual block mode
                     if event.key == pygame.K_TAB:

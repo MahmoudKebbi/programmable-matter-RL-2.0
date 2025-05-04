@@ -1745,7 +1745,7 @@ class Visualizer:
 
         # Measure planning time
         start_time = time.time()
-        plan = self.ai_agent.plan()
+        plan = self.ai_agent.plan_auto()
         end_time = time.time()
 
         self.plan_time = end_time - start_time
